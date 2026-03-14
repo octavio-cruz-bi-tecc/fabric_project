@@ -1,0 +1,26 @@
+CREATE TABLE [QAD].[CTRY_MSTR] (
+
+	[CTRY_CTRY_CODE] varchar(8000) NULL, 
+	[CTRY_COUNTRY] varchar(8000) NULL, 
+	[CTRY_EC_FLAG] decimal(38,18) NULL, 
+	[CTRY_CODE1] varchar(8000) NULL, 
+	[CTRY_USER1] varchar(8000) NULL, 
+	[CTRY_USER2] varchar(8000) NULL, 
+	[CTRY__CHR01] varchar(8000) NULL, 
+	[CTRY__LOG01] decimal(38,18) NULL, 
+	[CTRY__QAD01] varchar(8000) NULL, 
+	[CTRY__QAD02] varchar(8000) NULL, 
+	[CTRY__QAD03] varchar(8000) NULL, 
+	[CTRY__QAD04] decimal(38,18) NULL, 
+	[CTRY__QAD05] decimal(38,18) NULL, 
+	[CTRY_GROUP] varchar(8000) NULL, 
+	[CTRY_CMTINDX] decimal(38,18) NULL, 
+	[CTRY_TYPE] varchar(8000) NULL, 
+	[CTRY_NAFTA_FLAG] decimal(38,18) NULL, 
+	[CTRY_DEA_FLAG] decimal(38,18) NULL, 
+	[CTRY_GATT_FLAG] decimal(38,18) NULL, 
+	[CTRY_VAT_REG_PREFIX] varchar(8000) NULL, 
+	[CTRY_IE_CODE] varchar(8000) NULL, 
+	[OID_CTRY_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

@@ -1,0 +1,27 @@
+CREATE TABLE [QAD].[TRGL_DET] (
+
+	[TRGL_CR_ACCT] varchar(8000) NULL, 
+	[TRGL_CR_CC] varchar(8000) NULL, 
+	[TRGL_DR_ACCT] varchar(8000) NULL, 
+	[TRGL_DR_CC] varchar(8000) NULL, 
+	[TRGL_TRNBR] decimal(38,18) NULL, 
+	[TRGL_GL_AMT] decimal(38,18) NULL, 
+	[TRGL_GL_REF] varchar(8000) NULL, 
+	[TRGL_TYPE] varchar(8000) NULL, 
+	[TRGL_CR_PROJ] varchar(8000) NULL, 
+	[TRGL_DR_PROJ] varchar(8000) NULL, 
+	[TRGL_CR_LINE] decimal(38,18) NULL, 
+	[TRGL_DR_LINE] decimal(38,18) NULL, 
+	[TRGL_USER1] varchar(8000) NULL, 
+	[TRGL_USER2] varchar(8000) NULL, 
+	[TRGL_SEQUENCE] decimal(38,18) NULL, 
+	[TRGL__QADC01] varchar(8000) NULL, 
+	[TRGL_DY_CODE] varchar(8000) NULL, 
+	[TRGL_DY_NUM] varchar(8000) NULL, 
+	[TRGL_CR_SUB] varchar(8000) NULL, 
+	[TRGL_DR_SUB] varchar(8000) NULL, 
+	[TRGL_DOMAIN] varchar(8000) NULL, 
+	[OID_TRGL_DET] decimal(38,18) NULL, 
+	[TRGL_EFF_TRANS] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

@@ -1,0 +1,25 @@
+CREATE TABLE [QAD].[XXCYCLE_MSTR] (
+
+	[XXCYCLE_NBR] varchar(8000) NULL, 
+	[XXCYCLE_SITE] varchar(8000) NULL, 
+	[XXCYCLE_PERIOD] smallint NULL, 
+	[XXCYCLE_TYPE] varchar(8000) NULL, 
+	[XXCYCLE_YEAR] smallint NULL, 
+	[XXCYCLE_USERID] varchar(8000) NULL, 
+	[XXCYCLE_DATE_REG] datetime2(6) NULL, 
+	[XXCYCLE__CHR01] varchar(8000) NULL, 
+	[XXCYCLE__CHR02] varchar(8000) NULL, 
+	[XXCYCLE__CHR03] varchar(8000) NULL, 
+	[XXCYCLE__DEC01] float NULL, 
+	[XXCYCLE__DEC02] float NULL, 
+	[XXCYCLE__DEC03] float NULL, 
+	[XXCYCLE__LOG01] smallint NULL, 
+	[XXCYCLE__LOG02] smallint NULL, 
+	[XXCYCLE__LOG03] smallint NULL, 
+	[XXCYCLE__DATE01] datetime2(6) NULL, 
+	[XXCYCLE__DATE02] datetime2(6) NULL, 
+	[XXCYCLE__DATE03] datetime2(6) NULL, 
+	[XXCYCLE_DOMAIN] varchar(8000) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL, 
+	[XXCYCLE_STATUS] varchar(8000) NULL
+);

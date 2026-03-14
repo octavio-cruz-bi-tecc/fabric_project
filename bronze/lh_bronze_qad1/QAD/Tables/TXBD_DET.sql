@@ -1,0 +1,12 @@
+CREATE TABLE [QAD].[TXBD_DET] (
+
+	[TXBD_BASE] varchar(8000) NULL, 
+	[TXBD_TAX_TYPE] varchar(8000) NULL, 
+	[TXBD_USER1] varchar(8000) NULL, 
+	[TXBD_USER2] varchar(8000) NULL, 
+	[TXBD__QAD01] varchar(8000) NULL, 
+	[TXBD__QAD02] varchar(8000) NULL, 
+	[TXBD_DOMAIN] varchar(8000) NULL, 
+	[OID_TXBD_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

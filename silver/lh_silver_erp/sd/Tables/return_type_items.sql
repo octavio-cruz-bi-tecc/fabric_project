@@ -1,0 +1,25 @@
+CREATE TABLE [sd].[return_type_items] (
+
+	[reason_code] varchar(8000) NULL, 
+	[description] varchar(8000) NULL, 
+	[created_at] datetime2(6) NULL, 
+	[authorization_number] int NULL, 
+	[auto_override_indicator] int NULL, 
+	[customer_cause_indicator] int NULL, 
+	[authorization_level1_users] varchar(8000) NULL, 
+	[authorization_level2_users] varchar(8000) NULL, 
+	[char_01] varchar(8000) NULL, 
+	[char_02] varchar(8000) NULL, 
+	[char_03] varchar(8000) NULL, 
+	[char_04] varchar(8000) NULL, 
+	[flag_01] int NULL, 
+	[flag_02] int NULL, 
+	[flag_03] int NULL, 
+	[date_01] datetime2(6) NULL, 
+	[date_02] datetime2(6) NULL, 
+	[date_03] datetime2(6) NULL, 
+	[type_code] varchar(8000) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

@@ -1,0 +1,25 @@
+CREATE TABLE [md].[rpa_control] (
+
+	[rpa_field_name] varchar(8000) NULL, 
+	[rpa_item_id] varchar(8000) NULL, 
+	[rpa_value] varchar(8000) NULL, 
+	[rpa_chr01] varchar(8000) NULL, 
+	[rpa_chr02] varchar(8000) NULL, 
+	[rpa_chr03] varchar(8000) NULL, 
+	[rpa_chr04] varchar(8000) NULL, 
+	[rpa_chr05] varchar(8000) NULL, 
+	[rpa_dat01] datetime2(6) NULL, 
+	[rpa_dat02] datetime2(6) NULL, 
+	[rpa_dat03] datetime2(6) NULL, 
+	[rpa_log01] int NULL, 
+	[rpa_log02] int NULL, 
+	[rpa_log03] int NULL, 
+	[rpa_dec01] decimal(38,10) NULL, 
+	[rpa_dec02] decimal(38,10) NULL, 
+	[rpa_dec03] decimal(38,10) NULL, 
+	[rpa_dec04] decimal(38,10) NULL, 
+	[rpa_dec05] decimal(38,10) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

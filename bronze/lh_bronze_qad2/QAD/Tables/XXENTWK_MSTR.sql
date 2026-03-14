@@ -1,0 +1,21 @@
+CREATE TABLE [QAD].[XXENTWK_MSTR] (
+
+	[XXENTWK_ADDR] varchar(8000) NULL, 
+	[XXENTWK_DESC] varchar(8000) NULL, 
+	[XXENTWK_GROUP] varchar(8000) NULL, 
+	[XXENTWK__CHR01] varchar(8000) NULL, 
+	[XXENTWK__CHR02] varchar(8000) NULL, 
+	[XXENTWK__CHR03] varchar(8000) NULL, 
+	[XXENTWK__DEC01] decimal(38,18) NULL, 
+	[XXENTWK__DEC02] decimal(38,18) NULL, 
+	[XXENTWK__DEC03] decimal(38,18) NULL, 
+	[XXENTWK__LOG01] smallint NULL, 
+	[XXENTWK__LOG02] smallint NULL, 
+	[XXENTWK__LOG03] smallint NULL, 
+	[XXENTWK__DTE01] datetime2(6) NULL, 
+	[XXENTWK__DTE02] datetime2(6) NULL, 
+	[XXENTWK__DTE03] datetime2(6) NULL, 
+	[XXENTWK_DOMAIN] varchar(8000) NULL, 
+	[OID_XXENTWK_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] int NULL
+);

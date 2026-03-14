@@ -1,0 +1,13 @@
+CREATE TABLE [QAD].[USRG_MSTR] (
+
+	[USRG_GROUP_NAME] varchar(8000) NULL, 
+	[USRG_GROUP_DESC] varchar(8000) NULL, 
+	[USRG_MOD_USERID] varchar(8000) NULL, 
+	[USRG_MOD_DATE] datetime2(6) NULL, 
+	[USRG_USER1] varchar(8000) NULL, 
+	[USRG_USER2] varchar(8000) NULL, 
+	[USRG__QADC01] varchar(8000) NULL, 
+	[USRG__QADC02] varchar(8000) NULL, 
+	[OID_USRG_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

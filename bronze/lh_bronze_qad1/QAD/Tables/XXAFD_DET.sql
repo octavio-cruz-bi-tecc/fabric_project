@@ -1,0 +1,26 @@
+CREATE TABLE [QAD].[XXAFD_DET] (
+
+	[XXAFD_NBR] varchar(8000) NULL, 
+	[XXAFD_LINE] decimal(38,18) NULL, 
+	[XXAFD_TYPE] varchar(8000) NULL, 
+	[XXAFD_VALUE] varchar(8000) NULL, 
+	[XXAFD_TOL1] varchar(8000) NULL, 
+	[XXAFD_TOL2] varchar(8000) NULL, 
+	[XXAFD_UM] varchar(8000) NULL, 
+	[XXAFD_ISCUSTOM] decimal(38,18) NULL, 
+	[XXAFD__CHR01] varchar(8000) NULL, 
+	[XXAFD__CHR02] varchar(8000) NULL, 
+	[XXAFD__CHR03] varchar(8000) NULL, 
+	[XXAFD__LOG01] decimal(38,18) NULL, 
+	[XXAFD__LOG02] decimal(38,18) NULL, 
+	[XXAFD__LOG03] decimal(38,18) NULL, 
+	[XXAFD__DEC01] decimal(38,18) NULL, 
+	[XXAFD__DEC02] decimal(38,18) NULL, 
+	[XXAFD__DEC03] decimal(38,18) NULL, 
+	[XXAFD__DTE01] datetime2(6) NULL, 
+	[XXAFD__DTE02] datetime2(6) NULL, 
+	[XXAFD__DTE03] datetime2(6) NULL, 
+	[XXAFD_DOMAIN] varchar(8000) NULL, 
+	[OID_XXAFD_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

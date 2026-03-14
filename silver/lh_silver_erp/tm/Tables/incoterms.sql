@@ -1,0 +1,27 @@
+CREATE TABLE [tm].[incoterms] (
+
+	[incoterm_id] varchar(8000) NULL, 
+	[type] varchar(8000) NULL, 
+	[desc] varchar(8000) NULL, 
+	[user1] varchar(8000) NULL, 
+	[user2] varchar(8000) NULL, 
+	[chr01] varchar(8000) NULL, 
+	[chr02] varchar(8000) NULL, 
+	[chr03] varchar(8000) NULL, 
+	[chr04] varchar(8000) NULL, 
+	[chr05] varchar(8000) NULL, 
+	[chr06] varchar(8000) NULL, 
+	[chr07] varchar(8000) NULL, 
+	[chr08] varchar(8000) NULL, 
+	[dec01] int NULL, 
+	[dec02] int NULL, 
+	[dte01] datetime2(6) NULL, 
+	[dte02] datetime2(6) NULL, 
+	[log01] int NULL, 
+	[log02] int NULL, 
+	[accrual_level] varchar(8000) NULL, 
+	[lc_charge] varchar(8000) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

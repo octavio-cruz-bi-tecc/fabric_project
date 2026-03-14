@@ -1,0 +1,22 @@
+CREATE TABLE [QAD].[XXSHIPD_DET] (
+
+	[XXSHIPD_NBR] varchar(8000) NULL, 
+	[XXSHIPD_SEQ] varchar(8000) NULL, 
+	[XXSHIPD_DOC] varchar(8000) NULL, 
+	[XXSHIPD_SITE] varchar(8000) NULL, 
+	[XXSHIPD_DOC_DATE] datetime2(6) NULL, 
+	[XXSHIPD_ADDR] varchar(8000) NULL, 
+	[XXSHIPD_CITY] varchar(8000) NULL, 
+	[XXSHIPD_QTY_SHIP] decimal(38,18) NULL, 
+	[XXSHIPD_USERID] varchar(8000) NULL, 
+	[XXSHIPD__DEC01] decimal(38,18) NULL, 
+	[XXSHIPD__DEC02] decimal(38,18) NULL, 
+	[XXSHIPD__CHR01] varchar(8000) NULL, 
+	[XXSHIPD__CHR02] varchar(8000) NULL, 
+	[XXSHIPD__LOG01] decimal(38,18) NULL, 
+	[XXSHIPD_DOMAIN] varchar(8000) NULL, 
+	[OID_SHIPD_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL, 
+	[XXSHIPD_QTY_KG] decimal(38,18) NULL, 
+	[XXSHIPD_TYPE] varchar(8000) NULL
+);

@@ -1,0 +1,25 @@
+CREATE TABLE [QAD].[BGD_DET] (
+
+	[BGD_ACC] varchar(8000) NULL, 
+	[BGD_CC] varchar(8000) NULL, 
+	[BGD_PROJECT] varchar(8000) NULL, 
+	[BGD_ENT_DT] datetime2(6) NULL, 
+	[BGD_YEAR] decimal(38,18) NULL, 
+	[BGD_PER] decimal(38,18) NULL, 
+	[BGD_AMT] decimal(38,18) NULL, 
+	[BGD_PCT] decimal(38,18) NULL, 
+	[BGD_FPOS] decimal(38,18) NULL, 
+	[BGD_ENTITY] varchar(8000) NULL, 
+	[BGD_CODE] varchar(8000) NULL, 
+	[BGD_USER1] varchar(8000) NULL, 
+	[BGD_USER2] varchar(8000) NULL, 
+	[BGD_USERID] varchar(8000) NULL, 
+	[BGD_DATE] datetime2(6) NULL, 
+	[BGD_SUB] varchar(8000) NULL, 
+	[BGD_ECUR_AMT] decimal(38,18) NULL, 
+	[BGD_EN_ENRATE] decimal(38,18) NULL, 
+	[BGD__QADC01] varchar(8000) NULL, 
+	[BGD_DOMAIN] varchar(8000) NULL, 
+	[OID_BGD_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

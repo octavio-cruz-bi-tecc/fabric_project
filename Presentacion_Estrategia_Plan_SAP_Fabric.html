@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrategia y plan de acción – Integración SAP en Fabric</title>
+  <!--
+    Para exportar a PDF: abrir en el navegador, tecla 'F' para vista pantalla completa (opcional),
+    luego Archivo > Imprimir (o Ctrl+P) y elegir "Guardar como PDF" como destino.
+  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.css">
+  <style>
+    .reveal table { font-size: 0.7em; }
+    .reveal th, .reveal td { padding: 0.2em 0.4em; }
+    .reveal h2 { font-size: 1.4em; }
+    .reveal h3 { font-size: 1.1em; }
+    .reveal ul { font-size: 0.9em; }
+    .reveal .small { font-size: 0.75em; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Título -->
+      <section>
+        <h1>Estrategia de integración SAP en Fabric</h1>
+        <h2>y plan de acción</h2>
+        <p class="small">Microsoft Fabric – Arquitectura Medallion (QAD + SAP S/4 HANA)</p>
+      </section>
+
+      <!-- ========== BLOQUE ESTRATEGIA ========== -->
+      <section>
+        <h2>Parte 1: Estrategia</h2>
+      </section>
+
+      <section>
+        <h2>Objetivo</h2>
+        <p>Incorporar datos de <strong>SAP S/4 HANA Cloud Private Edition</strong> en la arquitectura medallion existente (Bronze → Silver → Gold) que hoy consume <strong>QAD MFG</strong>, de modo que las vistas Gold (reportes y RPA's) sirvan datos de ambos ERPs de forma unificada y transparente para el usuario final.</p>
+      </section>
+
+      <section>
+        <h2>Situación actual – Bronze</h2>
+        <table>
+          <thead>
+            <tr><th>Lakehouse</th><th>Contenido</th><th>Dominios / empresas</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>lh_bronze_qad1</strong></td><td>Copia espejo MFG QAD (servidor 1)</td><td>SCO (SCM), SEL</td></tr>
+            <tr><td><strong>lh_bronze_qad2</strong></td><td>Copia espejo MFG QAD (servidor 2)</td><td>PS, STU, SUS, HOS, IZD, IMA, SAS</td></tr>
+            <tr><td><strong>lh_bronze_sap</strong></td><td>Tablas desde CDS views (SAPHANADB)</td><td>Un solo tenant SAP</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Silver actual (lh_silver_erp)</h2>
+        <ul>
+          <li><strong>Nombres:</strong> genéricos, snake_case, inglés, estilo SAP.</li>
+          <li><strong>Estructura:</strong> muy parecida a QAD (granularidad, normalización heredada).</li>
+          <li><strong>company_code</strong> sustituye al dominio; <strong>source_system</strong> en parte de las tablas (extender a todas las que reciban QAD + SAP).</li>
+        </ul>
+        <p class="small">Contrato para SAP: mismo nombre de tablas/columnas y tipos que Silver actual (estilo QAD).</p>
+      </section>
+
+      <section>
+        <h2>Tablas de control (lh_control_erp)</h2>
+        <table>
+          <thead>
+            <tr><th>Tabla</th><th>Uso</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>source_to_bronze_control</td><td>QAD → Bronze</td></tr>
+            <tr><td>source_to_bronze_control_sap</td><td>SAP → Bronze</td></tr>
+            <tr><td>bronze_to_silver_control</td><td>ETL Bronze QAD → Silver</td></tr>
+            <tr><td>bronze_to_silver_control_sap</td><td>ETL Bronze SAP → Silver</td></tr>
+            <tr><td>silver_to_gold_control</td><td>Silver → Gold (vistas para reportes y RPA's)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Go-live SAP – Tipos de empresa</h2>
+        <ul>
+          <li><strong>Empresas TECC:</strong> mayoría de módulos y procesos; concentran las vistas para reportes y RPA's en Fabric.</li>
+          <li><strong>Resto: financieras</strong> en 3 bloques.</li>
+        </ul>
+        <p><strong>Orden go-live (cronológico):</strong></p>
+        <ol style="font-size: 0.95em;">
+          <li>1.er bloque financieras — Febrero 2026</li>
+          <li>SEL — Abril 2026</li>
+          <li>STU + 2.º bloque financieras — Mayo 2026</li>
+          <li>SCO + último bloque financieras — Junio 2026</li>
+        </ol>
+        <ul style="margin-top: 1em;">
+          <li><strong>Situación actual (marzo 2026):</strong> SEL en 1 mes.</li>
+          <li><strong>Transición:</strong> 4–6 meses; foco de integración en las Empresas TECC.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Tres estrategias evaluadas</h2>
+        <table>
+          <thead>
+            <tr><th>Estrategia</th><th>Idea</th><th>Gold</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1. Silver unificado</strong></td><td>Una sola Silver (QAD + SAP); pipelines por fuente</td><td>Lee solo de Silver; transparente</td></tr>
+            <tr><td><strong>2. Silver dual</strong></td><td>Dos Silvers (QAD, SAP); sin capa conformada</td><td>UNION/JOIN de ambos; conoce las dos fuentes</td></tr>
+            <tr><td><strong>3. Silver dual + conformada</strong></td><td>Dos Silvers + capa que hace UNION</td><td>Lee solo de capa conformada; transparente</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Seleccionada: Estrategia 3</h2>
+        <table>
+          <thead>
+            <tr><th>Criterio</th><th>Estrategia 3</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Riesgo</td><td>No se toca Silver QAD; todo SAP en lh_silver_sap y pipelines nuevos</td></tr>
+            <tr><td>Transparencia Gold</td><td>Gold lee de un solo lugar (capa conformada)</td></tr>
+            <tr><td>Transición 4–6 meses</td><td>Dos Silvers técnicos, contrato común, capa que solo consolida</td></tr>
+            <tr><td>Buenas prácticas</td><td>Staging por fuente (QAD, SAP) + merge en capa conformada</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Implementación capa conformada</h2>
+        <ul>
+          <li>Vistas <strong>UNION ALL</strong> de tablas homólogas (lh_silver_qad + lh_silver_sap).</li>
+          <li>Cada fila: <code>company_code</code>, <code>source_system</code>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Uso de Silver para SAP</h2>
+        <ul>
+          <li>Reutilizar estructura Silver actual como contrato: nombres genéricos + forma tipo QAD.</li>
+          <li>Bronze SAP: ingestar <strong>CDS views</strong> (I_CUSTOMER, I_MATERIAL, I_SALESDOCUMENT, etc.).</li>
+          <li>En lh_silver_sap: mapeo campo a campo a esa estructura, con <code>source_system = 'SAP'</code>, <code>company_code</code>; “aplanar” cuando SAP reparta la entidad en varias tablas.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Incremental SAP (resumen)</h2>
+        <table>
+          <thead>
+            <tr><th>Método</th><th>Uso</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Full</strong></td><td>Siempre disponible; maestros en horario bajo uso</td></tr>
+            <tr><td><strong>Delta por timestamp</strong></td><td>Cuando la CDS expone LastChangeDate/Time y anotación delta</td></tr>
+            <tr><td><strong>Delta por CDC</strong></td><td>Cuando la CDS tiene changeDataCapture.automatic</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Registrar en source_to_bronze_control_sap y bronze_to_silver_control_sap (load_type, watermark, etc.).</p>
+      </section>
+
+      <!-- ========== BLOQUE PLAN DE ACCIÓN ========== -->
+      <section>
+        <h2>Parte 2: Plan de acción</h2>
+      </section>
+
+      <section>
+        <h2>Equipo y capacidad</h2>
+        <table>
+          <thead>
+            <tr><th>Rol</th><th>Cantidad</th><th>Responsabilidad principal en SAP</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Data Architect</td><td>1</td><td>Diseño, mapeos, estándares, capa conformada</td></tr>
+            <tr><td>Data Engineer</td><td>1 (actual)</td><td>Pipelines, ETL Bronze→Silver SAP, artefactos</td></tr>
+            <tr><td>Data Engineer</td><td>1 (próxima contratación)</td><td>Refuerzo ETL y piloto/entidades</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Total: 2 hoy; 3 con la nueva incorporación. Trabajo SAP en paralelo a la operación habitual (~40–50% tiempo en SAP).</p>
+      </section>
+
+      <section>
+        <h2>Actividades de operación habitual</h2>
+        <p>El equipo mantiene en paralelo tres frentes de trabajo operativo y de mejora continua, además del avance en integración SAP:</p>
+        <ul>
+          <li><strong>1) Fabric (Plataforma de datos / ETL)</strong> — Operación y mejora Bronze → Silver → Gold; estandarización multi-fuente; gobierno de datos.</li>
+          <li><strong>2) RPA's</strong> — Migración Oracle → Fabric (36/75, 48%); validación, optimización y mantenimiento dual.</li>
+          <li><strong>3) Sistema de Indicadores</strong> — Administración, operación, metas y configuraciones por empresa.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>1) Fabric (Plataforma de datos / ETL)</h2>
+        <p class="small"><strong>Qué estamos haciendo</strong></p>
+        <ul class="small">
+          <li>Operación, mejora y mantenimiento de los procesos Bronze → Silver → Gold.</li>
+          <li>Estandarización desde múltiples fuentes (Oracle/SQL/Postgres/SAP/archivos), con controles de carga y validaciones (conteos, totales, integridad).</li>
+          <li>Refuerzo de gobierno de datos: reglas de calidad, consistencia por empresa, manejo de errores y re-ejecuciones controladas.</li>
+        </ul>
+        <p class="small"><strong>Dónde estamos:</strong> Procesos en Fabric; estabilización + mejora continua; incidencias y ajustes por cambios en origen.</p>
+        <p class="small"><strong>Valor:</strong> Datos confiables y estandarizados para indicadores/reportes, con trazabilidad y controles.</p>
+        <p class="small"><strong>Riesgos:</strong> Cambios en estructuras/calidad de origen; permisos/conexiones y tiempos cuando sube el volumen.</p>
+      </section>
+
+      <section>
+        <h2>2) RPA's (Migración + mantenimiento)</h2>
+        <p class="small"><strong>Qué estamos haciendo</strong></p>
+        <ul class="small">
+          <li>Migración de RPA's cuidando reglas de negocio, no solo “pasar por pasar”.</li>
+          <li>Validación cruzada resultados: origen vs nuevo proceso.</li>
+          <li>Optimización de consultas y mejoras para reducir tiempos y evitar reproceso.</li>
+          <li>Mantenimiento dual: soporte a RPA's migrados y a los que siguen en legacy.</li>
+        </ul>
+        <p class="small"><strong>Dónde estamos:</strong> 36 RPA's migrados de 75 (48%). Tiempo por RPA: 2 días a 1 semana según complejidad.</p>
+        <p class="small"><strong>Valor:</strong> Automatizaciones estables, resultados validados y capacidad de ajuste cuando cambian reglas.</p>
+        <p class="small"><strong>Riesgos:</strong> Cambios frecuentes en reglas; dependencias entre RPA's y diferencias por empresa; retrabajo si definición de metas/datos llega tarde.</p>
+      </section>
+
+      <section>
+        <h2>3) Sistema de Indicadores</h2>
+        <p class="small"><strong>Qué estamos haciendo</strong></p>
+        <ul class="small">
+          <li>Administración del sistema (permisos, alta de objetos, estructura).</li>
+          <li>Operación: ejecuciones, validación de resultados, corrección de inconsistencias.</li>
+          <li>Ajustes de metas y mantenimiento de configuraciones (pueden variar por empresa).</li>
+        </ul>
+        <p class="small"><strong>Dónde estamos:</strong> Estabilización operativa + entendimiento del flujo completo; consolidando el modelo “mejor alternativa” cuando hay diferencias entre empresas.</p>
+        <p class="small"><strong>Valor:</strong> Indicadores consistentes y operables: ejecución controlada, metas actualizadas y accesos correctos.</p>
+        <p class="small"><strong>Riesgos:</strong> Metas/parametrizaciones incompletas o tardías; diferencias estructurales por empresa que requieren validación adicional.</p>
+      </section>
+
+      <section>
+        <h2>Fase 0: Cierre estrategia (1–2 sem)</h2>
+        <p><em>Objetivo:</em> Estrategia adoptada, lista de entidades, plan source_system.</p>
+        <ul class="small">
+          <li>Lista de entidades Silver que alimentan vistas (reportes y RPA's) para las Empresas TECC</li>
+          <li>Identificar tablas Silver con/sin source_system; plan de extensión</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fase 1: Mapeo y diseño (2–3 sem)</h2>
+        <p><em>Objetivo:</em> Matriz SAP→Silver, Full/Incremental por objeto, diseño lh_silver_sap y capa conformada.</p>
+        <ul class="small">
+          <li>Matriz de mapeo por entidad (CDS ↔ Silver); SE11, HANA Studio</li>
+          <li>Registro en source_to_bronze_control_sap (load_type, watermark)</li>
+          <li>Diseño lh_silver_sap (mismo contrato Silver); diseño capa conformada</li>
+          <li>Ampliar lh_bronze_sap con CDS del piloto</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fase 2: Piloto (1–2 sem)</h2>
+        <p><em>Objetivo:</em> Una entidad (ej. clientes o materiales) de punta a punta: Bronze SAP → lh_silver_sap → capa conformada → validación.</p>
+        <ul class="small">
+          <li>ETL Bronze SAP → lh_silver_sap; vista conformada (UNION); validación con vistas y RPA's</li>
+          <li>Documentar patrón para replicar en siguientes entidades</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fase 3: Rollout entidades (5–7 sem)</h2>
+        <p><em>Objetivo:</em> Todas las entidades necesarias para que las vistas Gold (reportes y RPA's) de las Empresas TECC consuman datos SAP vía capa conformada antes del go-live SEL.</p>
+        <ul class="small">
+          <li>Priorizar: maestros (clientes, materiales, proveedores) luego transaccionales</li>
+          <li>Por entidad: Bronze SAP, ETL → lh_silver_sap, vista conformada, control, prueba</li>
+          <li>Extender source_system en tablas Silver que falte</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fase 4: Go-live SEL (1–2 sem)</h2>
+        <p><em>Objetivo:</em> Validar vistas (reportes y RPA's) con datos SEL desde SAP; soporte post go-live.</p>
+        <ul class="small">
+          <li>Validación rápida de vistas conformadas y reportes</li>
+          <li>Validación con negocio; soporte incidencias y ajustes menores</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fase 5: STU, SCO y bloques financieras (3–4 sem)</h2>
+        <p><em>Objetivo:</em> Go-live STU + 2.º bloque financieras (Mayo 2026); SCO + último bloque financieras (Junio 2026); estabilización.</p>
+        <ul class="small">
+          <li>Validación rápida por empresa; revisión ligera para bloques financieras</li>
+          <li>Estabilización: optimización pipelines, documentación operativa</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Vista de cronograma</h2>
+        <table>
+          <thead>
+            <tr><th>Fase</th><th>Contenido</th><th>Duración</th><th>Hito</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Cierre estrategia, lista entidades</td><td>1–2 sem</td><td>Priorización lista</td></tr>
+            <tr><td>1</td><td>Mapeo, diseño lh_silver_sap y conformada</td><td>2–3 sem</td><td>Diseño y matriz listos</td></tr>
+            <tr><td>2</td><td>Piloto una entidad</td><td>1–2 sem</td><td>Patrón replicable</td></tr>
+            <tr><td>3</td><td>Rollout entidades Empresas TECC</td><td>5–7 sem</td><td>Vistas (reportes y RPA's) listas para SEL</td></tr>
+            <tr><td>4</td><td>Go-live SEL (Abril 2026)</td><td>1–2 sem</td><td>SEL en producción con SAP</td></tr>
+            <tr><td>5</td><td>STU + 2.º bloque fin. (May), SCO + último bloque fin. (Jun) + estabilización</td><td>3–4 sem</td><td>Transición cerrada</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Total estimado: 13–20 semanas.</p>
+      </section>
+
+      <section>
+        <h2>Riesgos y mitigación</h2>
+        <table>
+          <thead>
+            <tr><th>Riesgo</th><th>Mitigación</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Operación habitual consume más tiempo</td><td>Bloques fijos para SAP; priorizar entidades mínimas para SEL</td></tr>
+            <tr><td>Retraso contratación 2.º DE</td><td>Fase 3 más larga; concentrar en lo imprescindible para SEL</td></tr>
+            <tr><td>CDS sin delta</td><td>Full para esas entidades; documentar en control</td></tr>
+            <tr><td>Cambios fechas go-live</td><td>Definir fechas en plan y comunicar a equipos</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Próximos pasos inmediatos</h2>
+        <ol>
+          <li>Validar el plan con los responsables correspondientes.</li>
+          <li>Cerrar Fase 0 (1–2 semanas): adopción Estrategia 3, lista entidades, agregar source_system.</li>
+          <li>Iniciar Fase 1 en paralelo: matriz de mapeo (Architect) y revisión CDS/control (Engineer).</li>
+          <li>Priorizar piloto y entidades para SEL; con SEL en 1 mes, revisar capacidad para tener lo mínimo listo a tiempo.</li>
+        </ol>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      width: 1100,
+      height: 700
+    });
+  </script>
+</body>
+</html>

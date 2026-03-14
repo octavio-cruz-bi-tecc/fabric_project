@@ -1,0 +1,27 @@
+CREATE TABLE [QAD].[UM_MSTR] (
+
+	[UM_UM] varchar(8000) NULL, 
+	[UM_ALT_UM] varchar(8000) NULL, 
+	[UM_CONV] decimal(38,18) NULL, 
+	[UM_PART] varchar(8000) NULL, 
+	[UM_DESC] varchar(8000) NULL, 
+	[UM_ALT_QTY] decimal(38,18) NULL, 
+	[UM_DECIMALS] decimal(38,18) NULL, 
+	[UM_USER1] varchar(8000) NULL, 
+	[UM_USER2] varchar(8000) NULL, 
+	[UM__CHR01] varchar(8000) NULL, 
+	[UM__CHR02] varchar(8000) NULL, 
+	[UM__CHR03] varchar(8000) NULL, 
+	[UM__CHR04] varchar(8000) NULL, 
+	[UM__CHR05] varchar(8000) NULL, 
+	[UM__CHR06] varchar(8000) NULL, 
+	[UM__DEC01] decimal(38,18) NULL, 
+	[UM__DEC02] decimal(38,18) NULL, 
+	[UM__DTE01] datetime2(6) NULL, 
+	[UM__DTE02] datetime2(6) NULL, 
+	[UM__LOG01] decimal(38,18) NULL, 
+	[UM__LOG02] decimal(38,18) NULL, 
+	[UM_DOMAIN] varchar(8000) NULL, 
+	[OID_UM_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

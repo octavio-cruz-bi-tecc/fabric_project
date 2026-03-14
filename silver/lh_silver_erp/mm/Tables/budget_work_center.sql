@@ -1,0 +1,26 @@
+CREATE TABLE [mm].[budget_work_center] (
+
+	[work_center] varchar(8000) NULL, 
+	[user_name] varchar(8000) NULL, 
+	[creation_date] datetime2(6) NULL, 
+	[total_quantity] int NULL, 
+	[posting_date] datetime2(6) NULL, 
+	[planning_schedule] varchar(8000) NULL, 
+	[quantity_01] decimal(38,10) NULL, 
+	[quantity_02] decimal(38,10) NULL, 
+	[quantity_03] decimal(38,10) NULL, 
+	[quantity_04] decimal(38,10) NULL, 
+	[quantity_05] decimal(38,10) NULL, 
+	[prbg_chr01] varchar(8000) NULL, 
+	[prbg_chr02] varchar(8000) NULL, 
+	[prbg_chr03] varchar(8000) NULL, 
+	[prbg_chr04] varchar(8000) NULL, 
+	[prbg_chr05] varchar(8000) NULL, 
+	[prbg_dec01] decimal(38,10) NULL, 
+	[prbg_dec02] decimal(38,10) NULL, 
+	[prbg_dte01] datetime2(6) NULL, 
+	[prbg_dte02] datetime2(6) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

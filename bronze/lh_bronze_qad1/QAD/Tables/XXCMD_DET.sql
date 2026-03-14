@@ -1,0 +1,10 @@
+CREATE TABLE [QAD].[XXCMD_DET] (
+
+	[XXCMD_CM] varchar(8000) NULL, 
+	[XXCMD_CMMT] varchar(8000) NULL, 
+	[XXCMD_DAY_GRACE] decimal(38,18) NULL, 
+	[XXCMD_THEMES] varchar(8000) NULL, 
+	[XXCMD_DOMAIN] varchar(8000) NULL, 
+	[OID_XXCMD_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

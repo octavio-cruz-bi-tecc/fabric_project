@@ -1,0 +1,9 @@
+CREATE TABLE [QAD].[UPDT_LOG_TEMP] (
+
+	[TABLE_NAME] varchar(8000) NULL, 
+	[RECORD_ID] decimal(38,18) NULL, 
+	[COMPANY_CODE] varchar(8000) NULL, 
+	[UPDATED_AT] datetime2(6) NULL, 
+	[UPDATED_BY] varchar(8000) NULL, 
+	[OPERATION_TYPE] varchar(8000) NULL
+);

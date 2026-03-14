@@ -1,0 +1,26 @@
+CREATE TABLE [QAD].[TM_MSTR] (
+
+	[TM_CODE] varchar(8000) NULL, 
+	[TM_DESC] varchar(8000) NULL, 
+	[TM_TYPE] varchar(8000) NULL, 
+	[TM_MAXWEIGHT] decimal(38,18) NULL, 
+	[TM_WEIGHT_UM] varchar(8000) NULL, 
+	[TM_MAXCUBE] decimal(38,18) NULL, 
+	[TM_CUBE_UM] varchar(8000) NULL, 
+	[TM_HEIGHT] decimal(38,18) NULL, 
+	[TM_WIDTH] decimal(38,18) NULL, 
+	[TM_LENGTH] decimal(38,18) NULL, 
+	[TM_PALLETS] decimal(38,18) NULL, 
+	[TM_GROSS_WT] decimal(38,18) NULL, 
+	[TM_RATE_CODE] varchar(8000) NULL, 
+	[TM_CMTINDX] decimal(38,18) NULL, 
+	[TM_LOAD_LT] decimal(38,18) NULL, 
+	[TM_UNLOAD_LT] decimal(38,18) NULL, 
+	[TM_NO_UNITS] decimal(38,18) NULL, 
+	[TM_USER1] varchar(8000) NULL, 
+	[TM_USER2] varchar(8000) NULL, 
+	[TM__QADC01] varchar(8000) NULL, 
+	[TM_DOMAIN] varchar(8000) NULL, 
+	[OID_TM_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

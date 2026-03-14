@@ -1,0 +1,27 @@
+CREATE TABLE [ps].[feasibility_analysis_items] (
+
+	[feasibility_id] varchar(8000) NULL, 
+	[item_number] decimal(38,10) NULL, 
+	[criteria_type] varchar(8000) NULL, 
+	[criteria_value] varchar(8000) NULL, 
+	[lower_tolerance_limit] varchar(8000) NULL, 
+	[upper_tolerance_limit] varchar(8000) NULL, 
+	[unit_of_measure] varchar(8000) NULL, 
+	[custom_ind] decimal(38,10) NULL, 
+	[custom_string_01] varchar(8000) NULL, 
+	[custom_string_02] varchar(8000) NULL, 
+	[custom_string_03] varchar(8000) NULL, 
+	[custom_flag_01] bit NULL, 
+	[custom_flag_02] bit NULL, 
+	[custom_flag_03] bit NULL, 
+	[custom_decimal_01] decimal(38,10) NULL, 
+	[custom_decimal_02] decimal(38,10) NULL, 
+	[custom_decimal_03] decimal(38,10) NULL, 
+	[custom_datetime_01] datetime2(6) NULL, 
+	[custom_datetime_02] datetime2(6) NULL, 
+	[custom_datetime_03] datetime2(6) NULL, 
+	[source_oid] decimal(38,10) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

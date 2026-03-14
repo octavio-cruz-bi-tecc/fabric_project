@@ -1,0 +1,27 @@
+CREATE TABLE [QAD].[FABA_DET] (
+
+	[FABA_FA_ID] varchar(8000) NULL, 
+	[FABA_ACCTYPE] varchar(8000) NULL, 
+	[FABA_ACCT] varchar(8000) NULL, 
+	[FABA_SUB] varchar(8000) NULL, 
+	[FABA_CC] varchar(8000) NULL, 
+	[FABA_PROJ] varchar(8000) NULL, 
+	[FABA_GLSEQ] decimal(38,18) NULL, 
+	[FABA_MOD_USERID] varchar(8000) NULL, 
+	[FABA_MOD_DATE] datetime2(6) NULL, 
+	[FABA_USER1] varchar(8000) NULL, 
+	[FABA_USER2] varchar(8000) NULL, 
+	[FABA__CHR01] varchar(8000) NULL, 
+	[FABA__DEC01] decimal(38,18) NULL, 
+	[FABA__LOG01] decimal(38,18) NULL, 
+	[FABA__DTE01] datetime2(6) NULL, 
+	[FABA__INT01] decimal(38,18) NULL, 
+	[FABA__QADC01] varchar(8000) NULL, 
+	[FABA__QADD01] decimal(38,18) NULL, 
+	[FABA__QADI01] decimal(38,18) NULL, 
+	[FABA__QADL01] decimal(38,18) NULL, 
+	[FABA__QADT01] datetime2(6) NULL, 
+	[FABA_DOMAIN] varchar(8000) NULL, 
+	[OID_FABA_DET] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

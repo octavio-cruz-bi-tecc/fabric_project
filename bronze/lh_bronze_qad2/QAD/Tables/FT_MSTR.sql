@@ -1,0 +1,27 @@
+CREATE TABLE [QAD].[FT_MSTR] (
+
+	[FT_TERMS] varchar(8000) NULL, 
+	[FT_TYPE] varchar(8000) NULL, 
+	[FT_DESC] varchar(8000) NULL, 
+	[FT_USER1] varchar(8000) NULL, 
+	[FT_USER2] varchar(8000) NULL, 
+	[FT__CHR01] varchar(8000) NULL, 
+	[FT__CHR02] varchar(8000) NULL, 
+	[FT__CHR03] varchar(8000) NULL, 
+	[FT__CHR04] varchar(8000) NULL, 
+	[FT__CHR05] varchar(8000) NULL, 
+	[FT__CHR06] varchar(8000) NULL, 
+	[FT__CHR07] varchar(8000) NULL, 
+	[FT__CHR08] varchar(8000) NULL, 
+	[FT__DEC01] decimal(38,18) NULL, 
+	[FT__DEC02] decimal(38,18) NULL, 
+	[FT__DTE01] datetime2(6) NULL, 
+	[FT__DTE02] datetime2(6) NULL, 
+	[FT__LOG01] decimal(38,18) NULL, 
+	[FT__LOG02] decimal(38,18) NULL, 
+	[FT_ACCRUAL_LEVEL] varchar(8000) NULL, 
+	[FT_LC_CHARGE] varchar(8000) NULL, 
+	[FT_DOMAIN] varchar(8000) NULL, 
+	[OID_FT_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

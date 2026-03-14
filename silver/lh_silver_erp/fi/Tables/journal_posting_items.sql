@@ -1,0 +1,27 @@
+CREATE TABLE [fi].[journal_posting_items] (
+
+	[cr_gl_account_id] varchar(8000) NULL, 
+	[cr_cost_center_id] varchar(8000) NULL, 
+	[dr_gl_account_id] varchar(8000) NULL, 
+	[dr_cost_center_id] varchar(8000) NULL, 
+	[trnbr] decimal(38,10) NULL, 
+	[gl_amount] decimal(38,10) NULL, 
+	[gl_ref] varchar(8000) NULL, 
+	[type_code] varchar(8000) NULL, 
+	[cr_project_id] varchar(8000) NULL, 
+	[dr_project_id] varchar(8000) NULL, 
+	[cr_line_number] decimal(38,10) NULL, 
+	[dr_line_number] decimal(38,10) NULL, 
+	[user1] varchar(8000) NULL, 
+	[user2] varchar(8000) NULL, 
+	[sequence] decimal(38,10) NULL, 
+	[qadc01] varchar(8000) NULL, 
+	[dy_code] varchar(8000) NULL, 
+	[dy_num] varchar(8000) NULL, 
+	[cr_gl_subaccount_id] varchar(8000) NULL, 
+	[dr_gl_subaccount_id] varchar(8000) NULL, 
+	[effective_trans] decimal(38,10) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] bigint NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

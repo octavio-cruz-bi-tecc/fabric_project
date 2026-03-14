@@ -1,0 +1,25 @@
+CREATE TABLE [QAD].[XXPRBG_HIST] (
+
+	[XXPRBG_MCH] varchar(8000) NULL, 
+	[XXPRBG_USERID] varchar(8000) NULL, 
+	[XXPRBG_DATE_CREATE] datetime2(6) NULL, 
+	[XXPRBG_QTY] decimal(38,10) NULL, 
+	[XXPRBG_DATE] datetime2(6) NULL, 
+	[XXPRBG__CHR01] varchar(8000) NULL, 
+	[XXPRBG__CHR02] varchar(8000) NULL, 
+	[XXPRBG__DEC01] decimal(38,10) NULL, 
+	[XXPRBG__DEC02] decimal(38,10) NULL, 
+	[XXPRBG__DTE01] datetime2(6) NULL, 
+	[XXPRBG__DTE02] datetime2(6) NULL, 
+	[XXPRBG_DOMAIN] varchar(8000) NULL, 
+	[PROGRESS_RECID] decimal(38,10) NULL, 
+	[XXPRBG_QTY_1] decimal(38,10) NULL, 
+	[XXPRBG_QTY_2] decimal(38,10) NULL, 
+	[XXPRBG_QTY_3] decimal(38,10) NULL, 
+	[XXPRBG_QTY_4] decimal(38,10) NULL, 
+	[XXPRBG_QTY_5] decimal(38,10) NULL, 
+	[XXPRBG__CHR03] varchar(8000) NULL, 
+	[XXPRBG__CHR04] varchar(8000) NULL, 
+	[XXPRBG__CHR05] varchar(8000) NULL, 
+	[XXPRBG_SCHEDULE] varchar(8000) NULL
+);

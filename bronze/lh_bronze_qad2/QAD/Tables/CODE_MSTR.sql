@@ -1,0 +1,13 @@
+CREATE TABLE [QAD].[CODE_MSTR] (
+
+	[CODE_FLDNAME] varchar(8000) NULL, 
+	[CODE_VALUE] varchar(8000) NULL, 
+	[CODE_CMMT] varchar(8000) NULL, 
+	[CODE_USER1] varchar(8000) NULL, 
+	[CODE_USER2] varchar(8000) NULL, 
+	[CODE_DESC] varchar(8000) NULL, 
+	[CODE__QADC01] varchar(8000) NULL, 
+	[CODE_DOMAIN] varchar(8000) NULL, 
+	[OID_CODE_MSTR] decimal(38,18) NULL, 
+	[PROGRESS_RECID] decimal(38,18) NULL
+);

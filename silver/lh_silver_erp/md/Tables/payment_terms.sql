@@ -1,0 +1,25 @@
+CREATE TABLE [md].[payment_terms] (
+
+	[payment_code] varchar(8000) NULL, 
+	[desc] varchar(8000) NULL, 
+	[type] varchar(8000) NULL, 
+	[maxweight] int NULL, 
+	[weight_unit_of_measure] varchar(8000) NULL, 
+	[maxcube] int NULL, 
+	[cube_unit_of_measure] varchar(8000) NULL, 
+	[height] int NULL, 
+	[width] int NULL, 
+	[length] int NULL, 
+	[pallets] int NULL, 
+	[gross_wt] int NULL, 
+	[rate_code] varchar(8000) NULL, 
+	[cmtindx] int NULL, 
+	[load_lt] int NULL, 
+	[unload_lt] int NULL, 
+	[no_units] int NULL, 
+	[user1] varchar(8000) NULL, 
+	[user2] varchar(8000) NULL, 
+	[company_code] varchar(8000) NULL, 
+	[record_id] int NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

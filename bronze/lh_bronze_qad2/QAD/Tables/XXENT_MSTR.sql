@@ -1,0 +1,13 @@
+CREATE TABLE [QAD].[XXENT_MSTR] (
+
+	[PROGRESS_RECID] int NULL, 
+	[XXENT_INDEX] int NULL, 
+	[XXENT_ENT_DOMAIN] varchar(8000) NULL, 
+	[XXENT_ALIAS] varchar(8000) NULL, 
+	[XXENT_NAME] varchar(8000) NULL, 
+	[XXENT_SHORTNAME] varchar(8000) NULL, 
+	[XXENT_PR] varchar(8000) NULL, 
+	[XXENT_WK] varchar(8000) NULL, 
+	[XXENT_ISVALID] smallint NULL, 
+	[XXENT_TYPE] varchar(8000) NULL
+);

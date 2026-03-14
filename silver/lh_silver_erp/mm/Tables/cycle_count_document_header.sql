@@ -1,0 +1,26 @@
+CREATE TABLE [mm].[cycle_count_document_header] (
+
+	[cycle_count_document_id] varchar(8000) NULL, 
+	[plant_id] varchar(8000) NULL, 
+	[period] decimal(4,0) NULL, 
+	[type_code] varchar(8000) NULL, 
+	[year] decimal(4,0) NULL, 
+	[user_id] varchar(8000) NULL, 
+	[date_reg] datetime2(6) NULL, 
+	[chr01] varchar(8000) NULL, 
+	[chr02] varchar(8000) NULL, 
+	[chr03] varchar(8000) NULL, 
+	[dec01] decimal(11,2) NULL, 
+	[dec02] decimal(11,2) NULL, 
+	[dec03] decimal(11,2) NULL, 
+	[log01] bit NULL, 
+	[log02] bit NULL, 
+	[log03] bit NULL, 
+	[date01] datetime2(6) NULL, 
+	[date02] datetime2(6) NULL, 
+	[date03] datetime2(6) NULL, 
+	[record_id] bigint NULL, 
+	[company_code] varchar(8000) NULL, 
+	[status] varchar(8000) NULL, 
+	[last_updated_at] datetime2(6) NULL
+);

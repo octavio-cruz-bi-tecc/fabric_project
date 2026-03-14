@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de acción detallado – Integración SAP en Fabric</title>
+  <!--
+    Para exportar a PDF: abrir en el navegador, tecla 'F' para vista pantalla completa (opcional),
+    luego Archivo > Imprimir (o Ctrl+P) y elegir "Guardar como PDF" como destino.
+  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.css">
+  <style>
+    .reveal table { font-size: 0.65em; }
+    .reveal th, .reveal td { padding: 0.2em 0.35em; }
+    .reveal h2 { font-size: 1.3em; }
+    .reveal h3 { font-size: 1.05em; }
+    .reveal ul { font-size: 0.85em; }
+    .reveal .small { font-size: 0.72em; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Título -->
+      <section>
+        <h1>Plan de acción detallado</h1>
+        <h2>Integración SAP en Fabric</h2>
+        <p class="small">Cronograma por fases y actividades – Estrategia 3 (Silver dual + capa conformada)</p>
+      </section>
+
+      <!-- Propósito -->
+      <section>
+        <h2>Propósito del documento</h2>
+        <p>Este plan explota cada fase del cronograma en <strong>actividades concretas</strong>, con <strong>entregables claros</strong> y <strong>tiempo estimado</strong> por actividad.</p>
+        <p class="small">Derivado de la presentación <em>Estrategia y plan de acción – Integración SAP en Fabric</em>. Referencia: plan_de_accion_detallado.md.</p>
+      </section>
+
+      <!-- Vista de cronograma -->
+      <section>
+        <h2>Vista de cronograma (resumen)</h2>
+        <table>
+          <thead>
+            <tr><th>Fase</th><th>Contenido</th><th>Duración</th><th>Hito</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Cierre estrategia, lista entidades</td><td>1–2 sem</td><td>Priorización lista</td></tr>
+            <tr><td>1</td><td>Mapeo, diseño lh_silver_sap y conformada</td><td>2–3 sem</td><td>Diseño y matriz listos</td></tr>
+            <tr><td>2</td><td>Piloto una entidad</td><td>1–2 sem</td><td>Patrón replicable</td></tr>
+            <tr><td>3</td><td>Rollout entidades Empresas TECC</td><td>5–7 sem</td><td>Vistas (reportes y RPA's) listas para SEL</td></tr>
+            <tr><td>4</td><td>Go-live SEL (Abril 2026)</td><td>1–2 sem</td><td>SEL en producción con SAP</td></tr>
+            <tr><td>5</td><td>STU + 2.º bloque fin. (May), SCO + último bloque fin. (Jun) + estabilización</td><td>3–4 sem</td><td>Transición cerrada</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Total estimado:</strong> 13–20 semanas.</p>
+      </section>
+
+      <!-- Fase 0 -->
+      <section>
+        <h2>Fase 0: Cierre estrategia (1–2 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Estrategia adoptada, lista de entidades para Empresas TECC y plan de extensión de source_system.</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0.1</td><td>Formalizar adopción Estrategia 3 y validar plan</td><td>OK o ajustes al plan</td><td>2–3 días</td></tr>
+            <tr><td>0.2</td><td>Definir y documentar lista de entidades Silver</td><td>Lista priorizada de entidades</td><td>3–4 días</td></tr>
+            <tr><td>0.3</td><td>Identificar tablas con/sin source_system y plan de extensión</td><td>Lista de tablas y plan de cambio</td><td>1–2 días</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> Priorización lista (lista entidades + plan source_system).</p>
+      </section>
+
+      <!-- Fase 1 -->
+      <section>
+        <h2>Fase 1: Mapeo y diseño (2–3 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Matriz SAP→Silver, Full/Incremental por CDS, diseño lh_silver_sap y capa conformada; Bronze SAP para piloto.</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1.1</td><td>Matriz de mapeo por entidad (CDS ↔ Silver)</td><td>Matriz de mapeo por entidad</td><td>1–1,5 sem</td></tr>
+            <tr><td>1.2</td><td>Full vs Incremental y registro en control SAP</td><td>Control SAP actualizado; doc por objeto</td><td>3–4 días</td></tr>
+            <tr><td>1.3</td><td>Diseño lh_silver_sap</td><td>Documento de diseño lh_silver_sap</td><td>2–3 días</td></tr>
+            <tr><td>1.4</td><td>Diseño capa conformada</td><td>Especificación capa conformada</td><td>2 días</td></tr>
+            <tr><td>1.5</td><td>Ampliar lh_bronze_sap con CDS del piloto</td><td>Pipelines Source→Bronze SAP piloto; control</td><td>2–3 días</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> Diseño y matriz listos.</p>
+      </section>
+
+      <!-- Fase 2 -->
+      <section>
+        <h2>Fase 2: Piloto (1–2 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Una entidad de punta a punta: Bronze SAP → lh_silver_sap → capa conformada → validación; patrón documentado.</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2.1</td><td>ETL Bronze SAP → lh_silver_sap (entidad piloto)</td><td>Pipeline/notebook; tabla en lh_silver_sap</td><td>3–4 días</td></tr>
+            <tr><td>2.2</td><td>Vista conformada para la entidad piloto</td><td>Vista conformada probada</td><td>1–2 días</td></tr>
+            <tr><td>2.3</td><td>Validación punta a punta</td><td>OK validación; lecciones aprendidas</td><td>2–3 días</td></tr>
+            <tr><td>2.4</td><td>Documentar patrón estándar</td><td>Guía "cómo agregar una entidad SAP"</td><td>1 día</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> Patrón replicable.</p>
+      </section>
+
+      <!-- Fase 3 -->
+      <section>
+        <h2>Fase 3: Rollout entidades Empresas TECC (5–7 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Todas las entidades para que vistas Gold (reportes y RPA's) consuman SAP vía capa conformada antes del go-live SEL.</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>3.1</td><td>Priorizar orden de entidades</td><td>Orden de implementación documentado</td><td>2–3 días</td></tr>
+            <tr><td>3.2</td><td>Implementar entidades (Bronze, ETL, vista conformada, control, prueba)</td><td>Entidades en lh_silver_sap y capa conformada</td><td>4–6 sem</td></tr>
+            <tr><td>3.3</td><td>Revisión de calidad y estándares</td><td>Ajustes y estándares documentados</td><td>Continuo</td></tr>
+            <tr><td>3.4</td><td>Extender source_system en tablas Silver</td><td>Silver listo para multi-origen</td><td>1–2 días</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> Vistas (reportes y RPA's) listas para SEL.</p>
+      </section>
+
+      <!-- Fase 4 -->
+      <section>
+        <h2>Fase 4: Go-live SEL (1–2 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Validar vistas con datos SEL desde SAP; soporte post go-live (Abril 2026).</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>4.1</td><td>Actualizar go-live y validación rápida</td><td>Tabla go-live actualizada; validación rápida</td><td>0,5–1 día</td></tr>
+            <tr><td>4.2</td><td>Validación con negocio</td><td>OK de negocio o lista de ajustes</td><td>3–5 días</td></tr>
+            <tr><td>4.3</td><td>Soporte post go-live</td><td>Estabilización operativa</td><td>Resto de la fase</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> SEL en producción con SAP.</p>
+      </section>
+
+      <!-- Fase 5 -->
+      <section>
+        <h2>Fase 5: STU, SCO y bloques financieras (3–4 sem)</h2>
+        <p class="small"><strong>Objetivo:</strong> Go-live STU + 2.º bloque fin. (Mayo), SCO + último bloque fin. (Junio); estabilización final.</p>
+        <table>
+          <thead>
+            <tr><th>Cód.</th><th>Actividad</th><th>Entregables</th><th>Tiempo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>5.1</td><td>Go-live STU + 2.º bloque financieras (Mayo)</td><td>Empresas del bloque cubiertas</td><td>1–1,5 sem</td></tr>
+            <tr><td>5.2</td><td>Go-live SCO + último bloque financieras (Junio)</td><td>Transición cerrada</td><td>1–1,5 sem</td></tr>
+            <tr><td>5.3</td><td>Estabilización final</td><td>Proceso estable; doc de operación</td><td>1 sem</td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Entregable de fase:</strong> Transición cerrada.</p>
+      </section>
+
+      <!-- Resumen de tiempos -->
+      <section>
+        <h2>Resumen de tiempos</h2>
+        <table>
+          <thead>
+            <tr><th>Fase</th><th>Nombre</th><th>Duración</th><th>Hito</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Cierre estrategia</td><td>1–2 sem</td><td>Priorización lista</td></tr>
+            <tr><td>1</td><td>Mapeo y diseño</td><td>2–3 sem</td><td>Diseño y matriz listos</td></tr>
+            <tr><td>2</td><td>Piloto</td><td>1–2 sem</td><td>Patrón replicable</td></tr>
+            <tr><td>3</td><td>Rollout entidades Empresas TECC</td><td>5–7 sem</td><td>Vistas listas para SEL</td></tr>
+            <tr><td>4</td><td>Go-live SEL</td><td>1–2 sem</td><td>SEL en producción con SAP</td></tr>
+            <tr><td>5</td><td>STU, SCO y bloques financieras</td><td>3–4 sem</td><td>Transición cerrada</td></tr>
+            <tr><td colspan="2"><strong>Total</strong></td><td><strong>13–20 sem</strong></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Nota capacidad -->
+      <section>
+        <h2>Nota sobre capacidad</h2>
+        <p>Las estimaciones asumen trabajo SAP en <strong>paralelo</strong> a la operación habitual (Fabric, RPA's, Sistema de Indicadores).</p>
+        <ul>
+          <li>Aproximadamente <strong>40–50%</strong> del tiempo del equipo en SAP; el resto en BAU.</li>
+          <li>Más capacidad dedicada en periodos críticos (ej. antes del go-live SEL) puede acortar plazos.</li>
+        </ul>
+        <p class="small">Detalle de equipo, riesgos y próximos pasos: Plan_de_Accion_Integracion_SAP_Fabric.md</p>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      width: 1100,
+      height: 700
+    });
+  </script>
+</body>
+</html>

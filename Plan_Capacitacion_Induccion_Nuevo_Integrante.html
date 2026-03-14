@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de capacitación e inducción – Integración SAP en Fabric</title>
+  <!-- Para exportar a PDF: abrir en el navegador, tecla 'F' para pantalla completa, Archivo > Imprimir > Guardar como PDF -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.css">
+  <style>
+    .reveal table { font-size: 0.65em; border-collapse: collapse; }
+    .reveal th, .reveal td { padding: 0.25em 0.5em; border: 1px solid #ccc; }
+    .reveal th { background: #f0f0f0; }
+    .reveal h2 { font-size: 1.35em; margin-bottom: 0.5em; }
+    .reveal h3 { font-size: 1.05em; margin-top: 0.8em; }
+    .reveal ul { font-size: 0.85em; margin-left: 1.2em; }
+    .reveal .small { font-size: 0.7em; color: #555; }
+    .reveal .subtitle { font-size: 0.9em; color: #666; margin-top: 0.5em; }
+    .reveal .check { list-style: none; margin-left: 0; }
+    .reveal .check li::before { content: "☐ "; }
+    .reveal section .intro { text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Título -->
+      <section>
+        <h1>Plan de capacitación e inducción</h1>
+        <h2>Integración SAP en arquitectura Medallion (Fabric)</h2>
+        <p class="subtitle">Nuevo integrante del equipo · 2–3 semanas</p>
+      </section>
+
+      <section>
+        <h2>Público y objetivo</h2>
+        <p><strong>Público:</strong> Nuevo integrante (p. ej. Data Engineer).</p>
+        <p><strong>Objetivo:</strong> Que en 2–3 semanas comprenda el proyecto, la arquitectura, los documentos clave y las tareas en curso, y esté en condiciones de contribuir en ETL SAP y BAU.</p>
+        <p class="small">Documentos de referencia: Estrategia_Migracion_QAD_SAP_Medallion_Ampliada.md, Plan_de_Accion_Integracion_SAP_Fabric.md, Analisis_Matriz_y_CDS_Propuestas.md, avances semanales.</p>
+      </section>
+
+      <!-- Día 1-2 -->
+      <section>
+        <h2>1. Día 1–2: Contexto del proyecto</h2>
+      </section>
+
+      <section>
+        <h2>Qué hacemos y por qué</h2>
+        <ul>
+          <li><strong>Objetivo:</strong> Incorporar datos de <strong>SAP S/4 HANA Cloud Private Edition</strong> en la arquitectura que hoy consume <strong>QAD MFG</strong>, para que reportes y RPA consuman QAD + SAP de forma unificada.</li>
+          <li><strong>Arquitectura:</strong> Medallion en Microsoft Fabric: Bronze → Silver → Gold.</li>
+          <li><strong>Estrategia 3:</strong> Silver dual + capa conformada; no se toca Silver QAD; se crea <code>lh_silver_sap</code>; Gold consume de un solo punto (vistas UNION ALL).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Cronograma go-live SAP</h2>
+        <table>
+          <thead>
+            <tr><th>Bloque</th><th>Fecha go-live</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1.er bloque financieras</td><td>Febrero 2026 (ya en operación)</td></tr>
+            <tr><td><strong>SEL</strong></td><td><strong>Abril 2026</strong> (~1 mes)</td></tr>
+            <tr><td>STU + 2.º bloque financieras</td><td>Mayo 2026</td></tr>
+            <tr><td>SCO + último bloque financieras</td><td>Junio 2026</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Las 3 manufactureras (SEL, SCO, STU) son el foco; piloto y entidades críticas se priorizan para SEL.</p>
+      </section>
+
+      <section>
+        <h2>Lectura obligatoria (Día 1–2)</h2>
+        <ul>
+          <li><strong>Estrategia_Migracion_QAD_SAP_Medallion_Ampliada.md:</strong> secciones 1 (Situación actual), 2 (QAD vs SAP), 3 (estrategias), 4 (Recomendación E3), 6 (incremental SAP), 12 (extracción CDS/ODP).</li>
+          <li><strong>Plan_de_Accion_Integracion_SAP_Fabric.md:</strong> completo (fases 0–5, roles, riesgos, próximos pasos).</li>
+        </ul>
+      </section>
+
+      <!-- Día 3-4 -->
+      <section>
+        <h2>2. Día 3–4: Arquitectura técnica</h2>
+      </section>
+
+      <section>
+        <h2>Capas y lakehouses</h2>
+        <table>
+          <thead>
+            <tr><th>Capa</th><th>Lakehouses / contenido</th><th>Tu foco</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Bronze</strong></td><td>lh_bronze_qad1, lh_bronze_qad2, lh_bronze_sap (CDS SAPHANADB)</td><td>Conocer lh_bronze_sap y CDS ingeridas</td></tr>
+            <tr><td><strong>Silver</strong></td><td>lh_silver_erp (QAD); lh_silver_sap (E3, mismo contrato)</td><td>Contrato: snake_case, company_code, source_system</td></tr>
+            <tr><td><strong>Conformada</strong></td><td>Vistas UNION ALL Silver QAD + lh_silver_sap</td><td>Gold consume solo de aquí</td></tr>
+            <tr><td><strong>Gold</strong></td><td>Datamarts y vistas para reportes y RPA</td><td>No modificar sin alineación con Architect</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Tablas de control (lh_control_erp)</h2>
+        <ul>
+          <li><strong>source_to_bronze_control</strong> / <strong>source_to_bronze_control_sap:</strong> orígenes → Bronze (watermark, load_type Full/Incremental).</li>
+          <li><strong>bronze_to_silver_control</strong> / <strong>bronze_to_silver_control_sap:</strong> Bronze → Silver (type_load, watermarks).</li>
+          <li><strong>silver_to_gold_control:</strong> Silver → Gold (surrogate_key, business_keys).</li>
+          <li><strong>Tabla go-live:</strong> company_code + fecha go-live SAP por empresa.</li>
+        </ul>
+        <p class="small">Cada pipeline/entidad se registra en la tabla que corresponda; Full vs Incremental por objeto.</p>
+      </section>
+
+      <section>
+        <h2>Convenciones clave</h2>
+        <ul>
+          <li><strong>QAD:</strong> PROGRESS_RECID, dominio _DOMAIN; incremental vía UPDT_LOG (triggers Oracle).</li>
+          <li><strong>SAP:</strong> Extracción vía CDS views; incremental cuando la CDS tenga anotación delta (elemento o CDC).</li>
+          <li><strong>Silver unificado:</strong> company_code, source_system ('QAD'|'SAP'); estructura “estilo QAD” como contrato.</li>
+        </ul>
+        <p><strong>Conectividad SAP:</strong> Data Gateway, SAP HANA Connector; Fabric: SAP Table Application Server, SAP HANA Database (SAPHANADB). CDS piloto: IMATERIAL, I_CUSTOMER_CDS, ISDSALESORDER, IMATDOCITEM.</p>
+      </section>
+
+      <!-- Día 5-6 -->
+      <section>
+        <h2>3. Día 5–6: Mapeo SAP ↔ Silver y CDS</h2>
+      </section>
+
+      <section>
+        <h2>Matriz de mapeo</h2>
+        <ul>
+          <li><strong>Ubicación:</strong> Matriz de mapeo ERP (ej. Matriz_Mapeo_Final_ERP_v2.xlsx).</li>
+          <li><strong>Estructura:</strong> Por entidad Silver: filas Silver genérico, QAD (origen y campos), SAP (CDS y campos). Campo Silver ↔ campo SAP.</li>
+          <li><strong>Objetivo:</strong> Saber qué CDS corresponde a cada tabla Silver y qué columna SAP mapea a cada Silver.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Analisis_Matriz_y_CDS_Propuestas</h2>
+        <ul>
+          <li><strong>68 tablas Silver</strong> sin CDS asignada; se completan con: tabla QAD del grupo, esquema, campos clave, prioridad Gold.</li>
+          <li><strong>Basic_CDS_View.csv:</strong> lista de CDS, módulo, SQL view name, tipo de carga (Full/Delta).</li>
+          <li><strong>Diccionario de CDS:</strong> “Un archivo por CDS” con campos (Campo_CDS, Tipo_dato, Descripción, Mapeo_Silver).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Conceptos SAP a dominar</h2>
+        <ul>
+          <li><strong>CDS View:</strong> Vista de negocio en S/4; extraer CDS (con anotaciones) en lugar de tablas crudas.</li>
+          <li><strong>Full vs Delta:</strong> Delta = solo cambios (timestamp o CDC); si la CDS no tiene anotación, solo Full.</li>
+          <li><strong>Anotaciones:</strong> @Analytics.dataExtraction.enabled, delta.byElement.name, changeDataCapture.automatic.</li>
+        </ul>
+      </section>
+
+      <!-- Día 7-10 -->
+      <section>
+        <h2>4. Día 7–10: Fases y rol del nuevo integrante</h2>
+      </section>
+
+      <section>
+        <h2>Fases del plan de acción</h2>
+        <table>
+          <thead>
+            <tr><th>Fase</th><th>Contenido</th><th>Duración</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Cierre estrategia, lista entidades, tabla go-live, plan source_system</td><td>2–3 sem</td></tr>
+            <tr><td>1</td><td>Mapeo SAP→Silver, diseño lh_silver_sap y capa conformada, control Full/Delta</td><td>4–5 sem</td></tr>
+            <tr><td>2</td><td>Piloto una entidad (Bronze→Silver SAP→conformada→validación)</td><td>2–3 sem</td></tr>
+            <tr><td>3</td><td>Rollout entidades para manufactureras (SEL, SCO, STU)</td><td>8–12 sem</td></tr>
+            <tr><td>4–5</td><td>Go-live SEL, STU, SCO y financieras; estabilización</td><td>2–6 sem</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Situación actual: Fase 0 en cierre; Fase 1 en arranque. Prioridad: piloto y entidades para SEL.</p>
+      </section>
+
+      <section>
+        <h2>Rol del nuevo Data Engineer</h2>
+        <ul>
+          <li><strong>Principal:</strong> Réplica del patrón del piloto a más entidades (ETL Bronze SAP → lh_silver_sap, vistas conformadas, registro en control).</li>
+          <li><strong>También:</strong> Pipelines, notebooks, mantenimiento; soporte vistas Gold y RPA (BAU).</li>
+          <li><strong>Coordinación:</strong> Con Data Architect (mapeos, estándares); con el otro Data Engineer (reparto entidades, BAU).</li>
+        </ul>
+        <p class="small">BAU en paralelo: mantenimiento Medallion, migración RPA Oracle→Fabric, soporte Gold/RPA, mejora continua. Tiempo ~40–50% SAP, resto BAU.</p>
+      </section>
+
+      <!-- Semana 2 -->
+      <section>
+        <h2>5. Semana 2: Herramientas y primeros entregables</h2>
+      </section>
+
+      <section>
+        <h2>Accesos y herramientas</h2>
+        <ul class="check">
+          <li>Acceso a Microsoft Fabric (workspace, lh_bronze_sap, lh_silver_erp, lh_control_erp).</li>
+          <li>Acceso a documentación (repositorio, estrategia, plan, matriz, avances).</li>
+          <li>Cómo se ejecutan pipelines y dónde están los notebooks ETL Bronze→Silver.</li>
+          <li>Si aplica: acceso SAP (solo lectura) o documentación CDS (api.sap.com, Basic_CDS_View).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Patrón “cómo agregar una entidad SAP”</h2>
+        <ol>
+          <li>Dar de alta/verificar la CDS en Bronze (y en source_to_bronze_control_sap).</li>
+          <li>Implementar ETL Bronze SAP → lh_silver_sap según matriz; source_system, company_code.</li>
+          <li>Crear vista conformada (UNION Silver QAD + lh_silver_sap para esa entidad).</li>
+          <li>Registrar en bronze_to_silver_control_sap.</li>
+          <li>Prueba básica (volumen, muestreo, reporte Gold si aplica).</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Primeras tareas sugeridas</h2>
+        <ul>
+          <li>Revisar lista de entidades prioritarias (Fase 0) y matriz para 2–3 entidades asignadas.</li>
+          <li>Revisar source_to_bronze_control_sap y bronze_to_silver_control_sap: objetos, load_type, watermark.</li>
+          <li><strong>Shadowing:</strong> asistir a ejecución/revisión de pipeline Bronze→Silver y vista conformada o Gold.</li>
+        </ul>
+      </section>
+
+      <!-- Semana 3 -->
+      <section>
+        <h2>6. Semana 3: Autonomía y profundización</h2>
+      </section>
+
+      <section>
+        <h2>Objetivos Semana 3</h2>
+        <ul>
+          <li>Implementar una entidad nueva siguiendo el patrón, con revisión de código/mapeo.</li>
+          <li>Entender qué entidades son críticas para SEL (abril) y cuáles pueden esperar.</li>
+          <li>Conocer las 68 tablas sin CDS y el proceso para proponer/completar CDS (Architect o ABAP).</li>
+        </ul>
+        <h3 class="small">Temas opcionales</h3>
+        <p class="small">Incremental SAP (Full/Delta, watermark); tablas XX (custom QAD, columnas nullable); RPA y vistas Gold (impacto source_system, company_code).</p>
+      </section>
+
+      <!-- Checklist -->
+      <section>
+        <h2>7. Checklist de inducción</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th>Actividad</th><th>Responsable</th><th>Estado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Leer estrategia y plan de acción completo</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>2</td><td>Leer Analisis_Matriz_y_CDS_Propuestas y ubicar matriz</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>3</td><td>Revisar avance semanal y próxima reunión</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>4</td><td>Recibir acceso Fabric (workspace, lakehouses, pipelines)</td><td>Líder / IT</td><td></td></tr>
+            <tr><td>5</td><td>Sesión técnica: Bronze SAP, Silver, control, convenciones</td><td>Data Engineer / Architect</td><td></td></tr>
+            <tr><td>6</td><td>Revisar tabla go-live y fechas por company_code</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>7</td><td>Leer guía “cómo agregar una entidad SAP”</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>8</td><td>Shadowing: pipeline Bronze→Silver y vista conformada</td><td>Nuevo integrante</td><td></td></tr>
+            <tr><td>9</td><td>Asignar 1–2 entidades para primera entrega con revisión</td><td>Architect / Líder</td><td></td></tr>
+            <tr><td>10</td><td>Introducción a BAU (RPA, Gold, mantenimiento)</td><td>Equipo</td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Referencia -->
+      <section>
+        <h2>8. Documentos de referencia</h2>
+        <table>
+          <thead>
+            <tr><th>Documento</th><th>Contenido</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Estrategia_Migracion_QAD_SAP_Medallion_Ampliada.md</td><td>Contexto, arquitectura, QAD vs SAP, E3, incremental SAP, riesgos</td></tr>
+            <tr><td>Plan_de_Accion_Integracion_SAP_Fabric.md</td><td>Fases 0–5, tiempos, roles, próximos pasos</td></tr>
+            <tr><td>Analisis_Matriz_y_CDS_Propuestas.md</td><td>Matriz, 68 tablas sin CDS, Basic_CDS_View, diccionario CDS</td></tr>
+            <tr><td>avances semanales/</td><td>Frentes de avance, incorporación, próximos pasos</td></tr>
+            <tr><td>Matriz de mapeo (Excel/CSV)</td><td>Silver ↔ QAD ↔ SAP (CDS y campos)</td></tr>
+            <tr><td>Basic_CDS_View.csv</td><td>CDS por módulo, SQL view name, tipo de carga</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Cierre -->
+      <section>
+        <h2>Resumen</h2>
+        <p>Plan de 2–3 semanas: contexto (Día 1–2), arquitectura (Día 3–4), mapeo y CDS (Día 5–6), fases y rol (Día 7–10), herramientas y primeras tareas (Semana 2), autonomía (Semana 3).</p>
+        <p class="small">Documento generado para la incorporación de nuevo integrante al equipo de integración SAP en arquitectura Medallion (Fabric).</p>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      plugins: [ RevealNotes ]
+    });
+  </script>
+</body>
+</html>

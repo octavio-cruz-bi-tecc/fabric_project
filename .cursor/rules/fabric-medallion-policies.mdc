@@ -1,0 +1,20 @@
+---
+description: Nomenclatura y convenciones Medallion para Fabric (Bronze, Silver, Gold). SAP/QAD.
+globs:
+  - "**/*.sql"
+  - "**/*.py"
+  - "bronze/**/*"
+  - "silver/**/*"
+  - "gold/**/*"
+alwaysApply: false
+---
+
+# Fabric Medallion – Convenciones
+
+- **Silver:** snake_case tablas y columnas; esquemas sd, fi, co, mm, pp, md, ecp, qm; incluir `company_code` y `source_system` en multi-origen.
+- **Gold:** dim_*, fact_*; surrogate keys *_key; FKs con mismo nombre que la dimensión.
+- **Bronze:** Mantener nombres originales (QAD, SAP).
+- **Artefactos:** lh_, wh_, pl_, df_ (ej. lh_silver_erp, pl_load_bronze_qad).
+- **Vistas/SP/Fn:** vw_, sp_, fn_ con snake_case.
+
+Ver: Documentos/Politicas_Programacion_Fabric_Medallion.md | Skill: fabric-medallion-policies
